@@ -1,4 +1,4 @@
-package com.example.Popcorn.Time;
+package com.NetflixCloneProject.Popcorn.Time;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
