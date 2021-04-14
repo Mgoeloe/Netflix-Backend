@@ -9,5 +9,4 @@ import java.util.Optional;
 @Repository
 public interface IconsRepo extends JpaRepository<Icons, Long> {
 
-    Optional<Icons> findById();
 }
