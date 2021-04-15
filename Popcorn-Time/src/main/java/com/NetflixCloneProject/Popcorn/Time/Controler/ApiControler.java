@@ -1,54 +1,58 @@
 package com.NetflixCloneProject.Popcorn.Time.Controler;
 
 import com.NetflixCloneProject.Popcorn.Time.Model.ApiModel;
-import com.NetflixCloneProject.Popcorn.Time.Service.MovieService;
+//import com.NetflixCloneProject.Popcorn.Time.Service.MovieService;
+import com.NetflixCloneProject.Popcorn.Time.Service.apiServiceProxy;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 import java.util.Optional;
 
-@RequestMapping
-@Controller
-public class ApiControler {
+//@RequestMapping
+@RestController
+@EnableFeignClients(basePackageClasses = apiServiceProxy.class)
+public class ApiControler implements apiMovieService {
 
+private apiServiceProxy proxy;
+//
+//    @Autowired
+//    MovieService service;
 
-
-    @Autowired
-    MovieService service;
-
-    @GetMapping("")
-    public String homePage() {
-
-        return "homepage";
+    public ApiControler(apiServiceProxy proxy) {
+        this.proxy = proxy;
     }
 
-    @GetMapping("/api/movies/{id}")
-    public ResponseEntity OneMovie(@PathVariable Long id, HttpServletRequest request) {
-        try {
-            Optional<ApiModel> movieDetail = service.findProduct(id);
-            return new ResponseEntity<>(movieDetail, HttpStatus.OK);
+//    @GetMapping("")
+//    public String homePage() {
+//
+//        return "homepage";
+//    }
 
-        } catch (Exception e) {
-            return new ResponseEntity<>("Het is niet gelukt", HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+//    @GetMapping("/api/movies/{id}")
+//    public ResponseEntity OneMovie(@PathVariable Long id, HttpServletRequest request) {
+//        try {
+//            Optional<ApiModel> movieDetail = service.findProduct(id);
+//            return new ResponseEntity<>(movieDetail, HttpStatus.OK);
+//
+//        } catch (Exception e) {
+//            return new ResponseEntity<>("Het is niet gelukt", HttpStatus.INTERNAL_SERVER_ERROR);
+//        }
+//
+//
+//    }
 
+    @Override
+    @GetMapping("/api/movies")
+    public List<Object> getMovies() {
+        return proxy.getMovies();
     }
-
-
-
-
-
-
-
-
-
-
 
 
 
