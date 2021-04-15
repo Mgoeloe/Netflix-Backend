@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
-
+import com.NetflixCloneProject.Popcorn.Time.Service.apiMoviesService;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Optional;
@@ -18,16 +18,19 @@ import java.util.Optional;
 //@RequestMapping
 @RestController
 @EnableFeignClients(basePackageClasses = apiServiceProxy.class)
-public class ApiControler implements apiMovieService {
+public class ApiControler implements apiMoviesService {
 
+    @Autowired
 private apiServiceProxy proxy;
 //
 //    @Autowired
 //    MovieService service;
 
-    public ApiControler(apiServiceProxy proxy) {
-        this.proxy = proxy;
-    }
+
+
+//    public ApiControler(apiServiceProxy proxy) {
+//        this.proxy = proxy;
+//    }
 
 //    @GetMapping("")
 //    public String homePage() {
@@ -55,5 +58,10 @@ private apiServiceProxy proxy;
     }
 
 
+
+    @GetMapping("/api/discover")
+    public Optional<Object> discover() {
+        return proxy.discover();
+}
 
 }
