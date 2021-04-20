@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.Optional;
 
-@FeignClient(name = "apiMovieService", url = "https://api.themoviedb.org/3")
+@FeignClient(name = "tmdbClientService", url = "https://api.themoviedb.org/3")
 public interface apiServiceProxy extends apiMoviesService {
 
 

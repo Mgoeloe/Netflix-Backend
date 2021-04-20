@@ -2,6 +2,7 @@ package com.NetflixCloneProject.Popcorn.Time.Controler;
 
 import com.NetflixCloneProject.Popcorn.Time.Model.ApiModel;
 //import com.NetflixCloneProject.Popcorn.Time.Service.MovieService;
+import com.NetflixCloneProject.Popcorn.Time.Service.FeignClientTmdb;
 import com.NetflixCloneProject.Popcorn.Time.Service.apiServiceProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.openfeign.EnableFeignClients;
@@ -17,51 +18,54 @@ import java.util.Optional;
 
 //@RequestMapping
 @RestController
-@EnableFeignClients(basePackageClasses = apiServiceProxy.class)
-public class ApiControler implements apiMoviesService {
+
+public class ApiControler {
 
     @Autowired
-private apiServiceProxy proxy;
-//
-//    @Autowired
-//    MovieService service;
+    private FeignClientTmdb client;
+    private apiServiceProxy proxy;
 
 
+    @GetMapping("api/movies/{id}")
+    public ResponseEntity OneMovie(@PathVariable Long id, HttpServletRequest request) {
 
-//    public ApiControler(apiServiceProxy proxy) {
-//        this.proxy = proxy;
-//    }
+        Optional<Object> movieDetail = client.oneMovie(id, "43adde1f22cb5d9f3d7d5852fa42e5e6");
+        System.out.println(request);
 
-//    @GetMapping("")
-//    public String homePage() {
-//
-//        return "homepage";
-//    }
+        try {
 
-//    @GetMapping("/api/movies/{id}")
-//    public ResponseEntity OneMovie(@PathVariable Long id, HttpServletRequest request) {
-//        try {
-//            Optional<ApiModel> movieDetail = service.findProduct(id);
-//            return new ResponseEntity<>(movieDetail, HttpStatus.OK);
-//
-//        } catch (Exception e) {
-//            return new ResponseEntity<>("Het is niet gelukt", HttpStatus.INTERNAL_SERVER_ERROR);
-//        }
-//
-//
-//    }
+            return new ResponseEntity<>(movieDetail.get(), HttpStatus.OK);
 
-    @Override
-    @GetMapping("/api/movies")
-    public List<Object> getMovies() {
-        return proxy.getMovies();
+        } catch (Exception e) {
+            return new ResponseEntity<>("Het is niet gelukt", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+        @GetMapping("api/movies/discover")
+        public ResponseEntity discoverMovie(HttpServletRequest request) {
+
+
+            try {
+                Optional<Object> discovMovie = client.discover("43adde1f22cb5d9f3d7d5852fa42e5e6");
+                return new ResponseEntity<>(discovMovie.get(), HttpStatus.OK);
+
+            } catch (Exception e) {
+                return new ResponseEntity<>("Het is niet gelukt", HttpStatus.INTERNAL_SERVER_ERROR);
+            }
     }
 
+    @GetMapping("api/movies/genre")
+    public ResponseEntity genreMovie(HttpServletRequest request) {
 
 
-    @GetMapping("/api/discover")
-    public Optional<Object> discover() {
-        return proxy.discover();
+        try {
+            Optional<Object> movieGenre = client.genre("43adde1f22cb5d9f3d7d5852fa42e5e6");
+            return new ResponseEntity<>(movieGenre.get(), HttpStatus.OK);
+
+        } catch (Exception e) {
+            return new ResponseEntity<>("Het is niet gelukt", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 }
 
-}
+//test branche
