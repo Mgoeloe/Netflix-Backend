@@ -12,13 +12,14 @@ import java.util.Optional;
 
 public interface FeignClientTmdb {
 
-
+//1 moviepagina
     @GetMapping("/discover/movie")
     Optional<Object> discover(@RequestParam String api_key);
-
+//2 discover
     @GetMapping("/movie/{id}")
     Optional<Object> oneMovie(@PathVariable Long id, @RequestParam String api_key);
 
+//    3 discover
     @GetMapping("/genre/movie/list")
     Optional<Object> genre(@RequestParam String api_key);
 
