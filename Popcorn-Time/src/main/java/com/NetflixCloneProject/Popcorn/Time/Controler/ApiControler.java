@@ -25,7 +25,7 @@ public class ApiControler {
     private FeignClientTmdb client;
 
 
-
+//discover
     @GetMapping("api/movies/{id}")
     public ResponseEntity OneMovie(@PathVariable Long id, HttpServletRequest request) {
 
@@ -40,6 +40,8 @@ public class ApiControler {
             return new ResponseEntity<>("Het is niet gelukt", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+//    moviepagina
     @GetMapping("api/movies/discover")
     public ResponseEntity discoverMovie(HttpServletRequest request) {
 
@@ -53,6 +55,7 @@ public class ApiControler {
         }
     }
 
+//    discoverpagina
     @GetMapping("api/movies/genre")
     public ResponseEntity genreMovie(HttpServletRequest request) {
 
