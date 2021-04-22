@@ -23,5 +23,9 @@ public interface FeignClientTmdb {
     @GetMapping("/genre/movie/list")
     Optional<Object> genre(@RequestParam String api_key);
 
+//    movie trailer
+    @GetMapping("/movie/{id}/videos")
+    Optional<Object> videoMovie(@PathVariable Long id, @RequestParam String api_key);
+
 
 }
