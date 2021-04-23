@@ -14,6 +14,9 @@ api/movies/{id} - one movie
 ## movie page
 api/movies/discover - list of all movies
 
+## Links trailer
+api/movies/{id}/video - List of trailer-links
+
 --------------------------------------------------------
 
 

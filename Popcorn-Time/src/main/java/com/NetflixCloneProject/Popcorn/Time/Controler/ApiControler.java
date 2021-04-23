@@ -78,7 +78,7 @@ public class ApiControler {
 
     public ResponseEntity<List<Video>> getMovieTrailers(@PathVariable Long id, HttpServletRequest request) {
 
-        List<Object> LinksList = new ArrayList<>();
+        List<Object> linksList = new ArrayList<>();
         System.out.println(request.toString());
         try {
 
@@ -94,23 +94,27 @@ public class ApiControler {
                     default: link.setHref(makeYoutubeLink(item));
                 }
                 link.setRel(item.getName());
-                antlr.collections.List linksList = null;
+
                 linksList.add(link);
             }
-            ClassMap vidMovie = null;
-            return new ResponseEntity(vidMovie.get(id), HttpStatus.OK);
+
+            return new ResponseEntity(linksList, HttpStatus.OK);
 
         } catch (Exception e) {
             return new ResponseEntity("Het is niet gelukt", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    private String makeYoutubeLink(Video item) {
-        return null;
+    private String makeYoutubeLink(Video t) {
+        final String baseUrl = "https://www.youtube.com/watch?v=";
+
+        return baseUrl+t.getKey();
     }
 
-    private String makeVimeoLink(Video item) {
-        return null;
+    private String makeVimeoLink(Video t) {
+        final String baseUrl = "https://www.vimeo.com/";
+
+        return baseUrl+t.getKey();
     }
 
 
