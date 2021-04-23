@@ -2,8 +2,12 @@ package com.NetflixCloneProject.Popcorn.Time.Controler;
 
 
 //import com.NetflixCloneProject.Popcorn.Time.Service.MovieService;
+import com.NetflixCloneProject.Popcorn.Time.Classes.Trailer;
+import com.NetflixCloneProject.Popcorn.Time.Classes.TrailerLink;
+import com.NetflixCloneProject.Popcorn.Time.Classes.Video;
 import com.NetflixCloneProject.Popcorn.Time.Service.FeignClientTmdb;
 
+import javassist.ClassMap;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.HttpStatus;
@@ -15,6 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 //@RequestMapping
@@ -70,17 +76,42 @@ public class ApiControler {
 
     @GetMapping("api/movies/{id}/video")
 
+    public ResponseEntity<List<Video>> getMovieTrailers(@PathVariable Long id, HttpServletRequest request) {
 
-    public ResponseEntity movieVideo(@PathVariable Long id, HttpServletRequest request) {
-
-        Optional<Object> vidMovie = client.videoMovie(id, "43adde1f22cb5d9f3d7d5852fa42e5e6");
+        List<Object> LinksList = new ArrayList<>();
+        System.out.println(request.toString());
         try {
 
-            return new ResponseEntity<>(vidMovie.get(), HttpStatus.OK);
+            Trailer trailersList = client.getVideos(id, "43adde1f22cb5d9f3d7d5852fa42e5e6");
+            for (Video item: trailersList.getResults()) {
 
+                TrailerLink link = new TrailerLink();
+
+                switch (item.getSite()){
+                    case "Vimeo":
+                        link.setHref(makeVimeoLink(item));
+                        break;
+                    default: link.setHref(makeYoutubeLink(item));
+                }
+                link.setRel(item.getName());
+                antlr.collections.List linksList = null;
+                linksList.add(link);
+            }
+            ClassMap vidMovie = null;
+            return new ResponseEntity(vidMovie.get(id), HttpStatus.OK);
 
         } catch (Exception e) {
-            return new ResponseEntity<>("Het is niet gelukt", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity("Het is niet gelukt", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    private String makeYoutubeLink(Video item) {
+        return null;
+    }
+
+    private String makeVimeoLink(Video item) {
+        return null;
+    }
+
+
 }
