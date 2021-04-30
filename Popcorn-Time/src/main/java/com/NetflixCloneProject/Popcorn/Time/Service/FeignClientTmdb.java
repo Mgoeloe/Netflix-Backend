@@ -1,6 +1,7 @@
 package com.NetflixCloneProject.Popcorn.Time.Service;
 
 
+import com.NetflixCloneProject.Popcorn.Time.Classes.Actors;
 import com.NetflixCloneProject.Popcorn.Time.Classes.Trailer;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,6 +26,7 @@ public interface FeignClientTmdb {
     @GetMapping("/genre/movie/list")
     Optional<Object> genre(@RequestParam String api_key);
 
+
 //
 //    @GetMapping("/movie/{id}/videos")
 //    Optional<Object> videoMovie(@PathVariable Long id, @RequestParam String api_key);
@@ -35,4 +37,6 @@ public interface FeignClientTmdb {
     Trailer getVideos(@PathVariable Long id, @RequestParam String api_key);
 
 
+    @GetMapping(value = "/movie/{id}/credits", produces = "application/json")
+    Actors getCredits(@PathVariable Long id, @RequestParam String api_key);
 }

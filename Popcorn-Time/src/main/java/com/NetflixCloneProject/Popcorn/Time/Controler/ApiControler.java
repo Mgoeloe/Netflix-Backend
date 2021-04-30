@@ -2,9 +2,7 @@ package com.NetflixCloneProject.Popcorn.Time.Controler;
 
 
 //import com.NetflixCloneProject.Popcorn.Time.Service.MovieService;
-import com.NetflixCloneProject.Popcorn.Time.Classes.Trailer;
-import com.NetflixCloneProject.Popcorn.Time.Classes.TrailerLink;
-import com.NetflixCloneProject.Popcorn.Time.Classes.Video;
+import com.NetflixCloneProject.Popcorn.Time.Classes.*;
 import com.NetflixCloneProject.Popcorn.Time.Service.FeignClientTmdb;
 
 import javassist.ClassMap;
@@ -72,6 +70,22 @@ public class ApiControler {
         } catch (Exception e) {
             return new ResponseEntity<>("Het is niet gelukt", HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+//Actors / credits
+    @GetMapping("api/movies/{id}/credits")
+public ResponseEntity<List<Credits>> getActors(@PathVariable Long id, HttpServletRequest request) {
+        List<Object> ActorsList = new ArrayList<>();
+
+        try {
+            Actors actorslist = client.getCredits(id, "43adde1f22cb5d9f3d7d5852fa42e5e6");
+//            for (Credits item : actorslist.getResults()) {
+            return new ResponseEntity(getActors(id, request), HttpStatus.OK);
+        }
+            catch (Exception e) {
+                return new ResponseEntity("Het is niet gelukt", HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+
     }
 
     @GetMapping("api/movies/{id}/video")

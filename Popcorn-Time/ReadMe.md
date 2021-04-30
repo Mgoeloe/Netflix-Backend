@@ -7,8 +7,9 @@ A Netflix clone project made by the Popcorn Time Team!
 All resources are represented in JSON
 
 
-## discover page
+## discover page - all genres
 api/movies/genre - list of all genres
+#discover page - one movie
 api/movies/{id} - one movie
 
 ## movie page
