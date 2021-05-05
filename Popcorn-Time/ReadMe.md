@@ -12,6 +12,11 @@ api/movies/genre - list of all genres
 #discover page - one movie
 api/movies/{id} - one movie
 
+#discover page 80's/90's/00's movies
+api/movies/discover/{era}
+
+(Let op! era is het jaartal (dus 80 of 90)
+
 ## movie page
 api/movies/discover - list of all movies
 
