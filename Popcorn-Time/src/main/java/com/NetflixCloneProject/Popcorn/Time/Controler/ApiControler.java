@@ -5,7 +5,6 @@ package com.NetflixCloneProject.Popcorn.Time.Controler;
 import com.NetflixCloneProject.Popcorn.Time.Classes.*;
 import com.NetflixCloneProject.Popcorn.Time.Service.FeignClientTmdb;
 
-import javassist.ClassMap;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.HttpStatus;
