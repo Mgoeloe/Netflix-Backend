@@ -72,6 +72,8 @@ public class ApiControler {
         }
     }
 
+    //release_date.gte={gte}
+
     //80s/90s/ 00s
     @GetMapping("api/movies/discover/{era}")
     public ResponseEntity<List<Discover>> getMovieEra(@PathVariable Integer era){
@@ -101,18 +103,25 @@ public class ApiControler {
             return new ResponseEntity("Het is niet gelukt", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-//    @GetMapping("api/movies/genre/id")
-//    public ResponseEntity OneGenre(@PathVariable Long id, HttpServletRequest request) {
-//
-//        try {
-//
-//            Optional<Object> genre = client.oneGenre(id, "43adde1f22cb5d9f3d7d5852fa42e5e6");
-//            return new ResponseEntity<>(genre.get(), HttpStatus.OK);
-//
-//        } catch (Exception e) {
-//            return new ResponseEntity<>("Het is niet gelukt", HttpStatus.INTERNAL_SERVER_ERROR);
-//        }
-//    }
+//------------------------------------------------------------------------------------------------------
+    //genre id
+    @GetMapping("api/movies/genre/{idg}")
+    public ResponseEntity <List<Discover>> getOneGenre(@PathVariable Integer idg) {
+        OneGenre with_genres = new OneGenre();
+        switch (idg) {
+            case 28:
+                with_genres.setGenreId("28");
+        }
+        Optional<Discover> genreData = client.getIdGenre(with_genres.getGenreId());
+        try {
+
+            return new ResponseEntity(genreData.get(), HttpStatus.OK);
+
+        } catch (Exception e) {
+            return new ResponseEntity("het is niet gelukt", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+//---------------------------------------------------------------------------------------------------------
 
 //Actors / credits
     @GetMapping("api/movies/{id}/credits")
