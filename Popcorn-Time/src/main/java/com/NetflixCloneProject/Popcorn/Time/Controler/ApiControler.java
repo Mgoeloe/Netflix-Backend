@@ -106,13 +106,19 @@ public class ApiControler {
 //------------------------------------------------------------------------------------------------------
     //genre id
     @GetMapping("api/movies/genre/{idg}")
-    public ResponseEntity <List<Discover>> getOneGenre(@PathVariable Integer idg) {
+    public ResponseEntity <List<Genre>> getOneGenre(@PathVariable int idg) {
         OneGenre with_genres = new OneGenre();
         switch (idg) {
             case 28:
-                with_genres.setGenreId("28");
+                with_genres.setGid("28");
+                break;
+
+            case 16:
+                with_genres.setGid("16");
+                break;
+
         }
-        Optional<Discover> genreData = client.getIdGenre(with_genres.getGenreId());
+        Optional<Discover> genreData = client.getIdGenre(with_genres.getGid());
         try {
 
             return new ResponseEntity(genreData.get(), HttpStatus.OK);

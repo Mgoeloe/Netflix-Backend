@@ -52,8 +52,11 @@ public interface FeignClientTmdb {
     Optional<Discover> getEraMovies(@PathVariable String gte, @PathVariable String lte);
 
     //one genre
-    @GetMapping(value = "/discover/movie?api_key=43adde1f22cb5d9f3d7d5852fa42e5e6&with_genres.genreid={genreid}", produces = "application/json")
-    Optional<Discover> getIdGenre(@PathVariable String genreId);
+    @GetMapping(value = "/discover/movie?api_key=43adde1f22cb5d9f3d7d5852fa42e5e6&with_genres={gid}", produces = "application/json")
+    Optional<Discover> getIdGenre(@PathVariable String gid);
+
+
+
 
 //    @GetMapping("/genre/movie/list")
 //    Optional<Object> oneGenre(@PathVariable Long id, @RequestParam String api_key);
