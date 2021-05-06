@@ -196,7 +196,27 @@ public class ApiControler {
         }
     }
 //---------------------------------------------------------------------------------------------------------
+// public ResponseEntity discoverMovie(HttpServletRequest request) {
+//
+//
+//        try {
+//            Optional<Object> discovMovie = client.discover("43adde1f22cb5d9f3d7d5852fa42e5e6");
+//            return new ResponseEntity<>(discovMovie.get(), HttpStatus.OK);
+//
+//        } catch (Exception e) {
+//            return new ResponseEntity<>("Het is niet gelukt", HttpStatus.INTERNAL_SERVER_ERROR);
+//        }
+//    }
+    // Disney films
 
+//    @GetMapping("api/movies/disney")
+//    public ResponseEntity<> getDisney(@PathVariable int id, HttpServletRequest request) {
+//
+//
+//        try {
+//            Optional<Disney> disneyList = client
+//        }
+//    }
 //Actors / credits
     @GetMapping("api/movies/{id}/credits")
 public ResponseEntity<List<Credits>> getActors(@PathVariable Long id, HttpServletRequest request) {
