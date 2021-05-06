@@ -117,6 +117,74 @@ public class ApiControler {
                 with_genres.setGid("16");
                 break;
 
+            case 12:
+                with_genres.setGid("12");
+                break;
+
+            case 35:
+                with_genres.setGid("35");
+                break;
+
+            case 80:
+                with_genres.setGid("80");
+                break;
+
+            case 99:
+                with_genres.setGid("99");
+                break;
+
+            case 18:
+                with_genres.setGid("18");
+                break;
+
+            case 10751:
+                with_genres.setGid("10751");
+                break;
+
+            case 14:
+                with_genres.setGid("14");
+                break;
+
+            case 36:
+                with_genres.setGid("36");
+                break;
+
+            case 27:
+                with_genres.setGid("27");
+                break;
+
+            case 10402:
+                with_genres.setGid("10402");
+                break;
+
+            case 9648:
+                with_genres.setGid("9648");
+                break;
+
+            case 10749:
+                with_genres.setGid("10749");
+                break;
+
+            case 878:
+                with_genres.setGid("878");
+                break;
+
+            case 10770:
+                with_genres.setGid("10770");
+                break;
+
+            case 53:
+                with_genres.setGid("53");
+                break;
+
+            case 10752:
+                with_genres.setGid("10752");
+                break;
+
+            case 37:
+                with_genres.setGid("37");
+                break;
+
         }
         Optional<Discover> genreData = client.getIdGenre(with_genres.getGid());
         try {
