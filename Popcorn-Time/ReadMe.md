@@ -89,6 +89,11 @@ api/movies/disney
 
 ---------------------------------------------------
 
+##Discover page: Will Smith Actor
+api/movies/will-smith
+
+---------------------------------------------------
+
 #Discover page - one movie
 api/movies/{id} - one movie
 

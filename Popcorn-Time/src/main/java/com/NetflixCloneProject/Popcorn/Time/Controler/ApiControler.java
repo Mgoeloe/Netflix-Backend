@@ -207,6 +207,17 @@ public class ApiControler {
         }
     }
 
+    //Will Smith
+    @GetMapping("api/movies/will-smith")
+    public ResponseEntity getActor(HttpServletRequest request) {
+        try {
+            Optional<Object> willSmith = client.getWillSmith();
+            return new ResponseEntity(willSmith.get(), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Het is niet gelukt", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 //Actors / credits
 //    @GetMapping("api/movies/{id}/credits")
 //public ResponseEntity<List<Credits>> getActors(@PathVariable Long id, HttpServletRequest request) {

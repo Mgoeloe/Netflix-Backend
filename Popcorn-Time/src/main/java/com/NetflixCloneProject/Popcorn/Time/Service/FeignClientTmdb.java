@@ -51,7 +51,8 @@ public interface FeignClientTmdb {
     @GetMapping(value = "/discover/movie?api_key=43adde1f22cb5d9f3d7d5852fa42e5e6&with_companies=3475", produces = "application/json")
     Optional<Object> getCompany();
 
-
+    @GetMapping(value = "/search/person?api_key=43adde1f22cb5d9f3d7d5852fa42e5e6&query=will+smith", produces = "application/json")
+    Optional<Object> getWillSmith();
 
 
 //https://api.themoviedb.org/3/discover/movie?api_key=43adde1f22cb5d9f3d7d5852fa42e5e6&language=en-US&sort_by=popularity.desc&with_companies=3475
