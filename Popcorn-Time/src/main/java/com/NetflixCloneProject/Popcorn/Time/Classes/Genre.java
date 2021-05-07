@@ -1,10 +1,5 @@
 package com.NetflixCloneProject.Popcorn.Time.Classes;
 
-//import javax.persistence.Entity;
-//import javax.persistence.Table;
-//
-//@Entity
-//@Table(name = "genres")
 
 public class Genre {
 

@@ -1,13 +1,14 @@
 package com.NetflixCloneProject.Popcorn.Time.Classes;
 
 public class Disney {
-    private int dm;
+    private String comp;
 
-    public int getDm() {
-        return dm;
+    public String getComp() {
+        return comp;
     }
 
-    public void setDm(int dm) {
-        this.dm = dm;
+    public void setComp(String comp) {
+        this.comp = comp;
     }
 }
+
