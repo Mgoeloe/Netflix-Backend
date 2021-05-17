@@ -87,12 +87,10 @@ public class ApiControler {
                 release_date.setGte("2000-01-01");
                 release_date.setLte("2009-12-31");
                 break;
-            default:
-//
         }
-//
+
         Optional<Discover> movieData = client.getEraMovies(release_date.getGte(), release_date.getLte());
-//
+
         try {
             return new ResponseEntity(movieData.get(), HttpStatus.OK);
         } catch (Exception e) {
@@ -192,11 +190,13 @@ public class ApiControler {
             return new ResponseEntity("het is niet gelukt", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-//---------------------------------------------------------------------------------------------------------
+
+    //---------------------------------------------------------------------------------------------------------
 //
     //Disneyfilms
     @GetMapping("api/movies/disney")
     public ResponseEntity getDisney(HttpServletRequest request) {
+
 
         try {
             Optional<Object> disneyData = client.getCompany();
@@ -208,15 +208,39 @@ public class ApiControler {
     }
 
     //Will Smith
-    @GetMapping("api/movies/will-smith")
-    public ResponseEntity getActor(HttpServletRequest request) {
+    @GetMapping("api/movies/tom-cruise")
+    public ResponseEntity getActor() {
+
         try {
             Optional<Object> willSmith = client.getWillSmith();
+
             return new ResponseEntity(willSmith.get(), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>("Het is niet gelukt", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+
+    @GetMapping("api/movies/search/{actor}")
+    public ResponseEntity<List<SearchActors>> searchActor(@PathVariable String actor) {
+//        SearchActors query = new SearchActors();
+        System.out.println(actor);
+
+//        switch (actor) {
+//            case "actor":
+//                query.setActorName(actor);
+//                break;
+//        }
+
+        Optional<Object> resultActor = client.getActorMovies(actor.toString());
+        try {
+            return new ResponseEntity(resultActor.get(), HttpStatus.OK);
+
+        } catch (Exception e) {
+            return new ResponseEntity("Het is niet gelukt", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 
 //Actors / credits
 //    @GetMapping("api/movies/{id}/credits")
@@ -234,48 +258,49 @@ public class ApiControler {
 //
 //    }
 
-    @GetMapping("api/movies/{id}/video")
+        @GetMapping("api/movies/{id}/video")
 
-    public ResponseEntity<List<Video>> getMovieTrailers(@PathVariable Long id, HttpServletRequest request) {
+        public ResponseEntity<List<Video>> getMovieTrailers (@PathVariable Long id, HttpServletRequest request){
 
-        List<Object> linksList = new ArrayList<>();
-        System.out.println(request.toString());
-        try {
+            List<Object> linksList = new ArrayList<>();
+            System.out.println(request.toString());
+            try {
 
-            Trailer trailersList = client.getVideos(id, "43adde1f22cb5d9f3d7d5852fa42e5e6");
-            for (Video item: trailersList.getResults()) {
+                Trailer trailersList = client.getVideos(id, "43adde1f22cb5d9f3d7d5852fa42e5e6");
+                for (Video item : trailersList.getResults()) {
 
-                TrailerLink link = new TrailerLink();
+                    TrailerLink link = new TrailerLink();
 
-                switch (item.getSite()){
-                    case "Vimeo":
-                        link.setHref(makeVimeoLink(item));
-                        break;
-                    default: link.setHref(makeYoutubeLink(item));
+                    switch (item.getSite()) {
+                        case "Vimeo":
+                            link.setHref(makeVimeoLink(item));
+                            break;
+                        default:
+                            link.setHref(makeYoutubeLink(item));
+                    }
+                    link.setRel(item.getName());
+
+                    linksList.add(link);
                 }
-                link.setRel(item.getName());
 
-                linksList.add(link);
+                return new ResponseEntity(linksList, HttpStatus.OK);
+
+            } catch (Exception e) {
+                return new ResponseEntity("Het is niet gelukt", HttpStatus.INTERNAL_SERVER_ERROR);
             }
-
-            return new ResponseEntity(linksList, HttpStatus.OK);
-
-        } catch (Exception e) {
-            return new ResponseEntity("Het is niet gelukt", HttpStatus.INTERNAL_SERVER_ERROR);
         }
+
+        private String makeYoutubeLink (Video t){
+            final String baseUrl = "https://www.youtube.com/watch?v=";
+
+            return baseUrl + t.getKey();
+        }
+
+        private String makeVimeoLink (Video t){
+            final String baseUrl = "https://www.vimeo.com/";
+
+            return baseUrl + t.getKey();
+        }
+
+
     }
-
-    private String makeYoutubeLink(Video t) {
-        final String baseUrl = "https://www.youtube.com/watch?v=";
-
-        return baseUrl+t.getKey();
-    }
-
-    private String makeVimeoLink(Video t) {
-        final String baseUrl = "https://www.vimeo.com/";
-
-        return baseUrl+t.getKey();
-    }
-
-
-}

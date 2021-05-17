@@ -89,8 +89,8 @@ api/movies/disney
 
 ---------------------------------------------------
 
-##Discover page: Will Smith Actor
-api/movies/will-smith
+##Discover page: Tom Cruise Actor
+api/movies/tom-cruise
 
 ---------------------------------------------------
 
