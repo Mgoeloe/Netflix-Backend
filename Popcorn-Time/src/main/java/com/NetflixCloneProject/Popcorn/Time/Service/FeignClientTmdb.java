@@ -2,9 +2,8 @@ package com.NetflixCloneProject.Popcorn.Time.Service;
 
 
 import com.NetflixCloneProject.Popcorn.Time.Classes.Discover;
-import com.NetflixCloneProject.Popcorn.Time.Classes.SearchActors;
+import com.NetflixCloneProject.Popcorn.Time.Classes.ResultSearchActor;
 import com.NetflixCloneProject.Popcorn.Time.Classes.Trailer;
-import com.NetflixCloneProject.Popcorn.Time.Classes.resultSearchActor;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
@@ -52,8 +51,19 @@ public interface FeignClientTmdb {
     @GetMapping(value = "/discover/movie?api_key=43adde1f22cb5d9f3d7d5852fa42e5e6&with_people=500", produces = "application/json")
     Optional<Object> getWillSmith();
 
-    @GetMapping(value = "search/person?api_key=43adde1f22cb5d9f3d7d5852fa42e5e6&query={actor}", produces = "application/json")
-    Optional<Object> getActorMovies(String actor);
+    @GetMapping(value = "/discover/movie?api_key=43adde1f22cb5d9f3d7d5852fa42e5e6&with_cast={id}", produces = "application/json")
+    Optional<Object> getResultActor(@PathVariable int id);
+
+    @GetMapping(value = "/search/person?api_key=43adde1f22cb5d9f3d7d5852fa42e5e6&query={actor}", produces = "application/json")
+    Optional<ResultSearchActor> searchActors(@PathVariable String actor);
+
+//    @GetMapping(value = "/search/person?api_key=43adde1f22cb5d9f3d7d5852fa42e5e6&query={actor}", produces = "application/json")
+//    Optional<Object> searchActors(@PathVariable String actor);
+
+//    @GetMapping(value = "/person/{actor}/movie_credits?api_key=43adde1f22cb5d9f3d7d5852fa42e5e6", produces = "application/json")
+//    Optional<Object> getActorMovies(String actorName);
+
+
 
 
 

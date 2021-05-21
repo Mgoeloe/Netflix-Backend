@@ -8,16 +8,30 @@ All resources are represented in JSON
 
 ---------------------------------------------------
 
+#Discover page Zoeken op acteur/actrice
+##api/movies/search/{actor}
+
+### Bij {actor} type je acteur of actrice naam in.
+####Let op! Pas een String method toe waarbij de spatie vervangen wordt door een + dus will smith moet worden will+smith
+
+#Discover page 80's/90's/00's movies
+##api/movies/discover/{era}
+
+####Let op! {era} is het jaartal (dus 80 of 90)
+
+---------------------------------------------------
 ## Discover page - all genres
-api/movies/genre - list of all genres
+List of all genres
+##api/movies/genre
+
 
 ---------------------------------------------------
 
 ## One Genre per ID
-api/movies/genre/{idg}
+## api/movies/genre/{idg}
 
-(idg is het genre id, zie lijst hieronder voor welke id bij welke genre hoort)
-
+####Let op! {idg} is het genre id, zie lijst hieronder voor welke id bij welke genre hoort
+###Genre id's zijn:
 "id": 28,
 "Action"
 
@@ -77,33 +91,26 @@ api/movies/genre/{idg}
 
 ---------------------------------------------------
 
-#Discover page 80's/90's/00's movies
-api/movies/discover/{era}
-
-(Let op! era is het jaartal (dus 80 of 90)
+#Discover page: Disney movies
+##api/movies/disney
 
 ---------------------------------------------------
 
-##Discover page: Disney movies
-api/movies/disney
-
----------------------------------------------------
-
-##Discover page: Tom Cruise Actor
-api/movies/tom-cruise
+#Discover page: Tom Cruise Actor
+##api/movies/tom-cruise
 
 ---------------------------------------------------
 
 #Discover page - one movie
-api/movies/{id} - one movie
+##api/movies/{id}
 
 ---------------------------------------------------
-## movie page
-api/movies/discover - list of all movies
+#Movie page - list of all movies
+##api/movies/discover 
 
 ---------------------------------------------------
-## Links trailer
-api/movies/{id}/video - List of trailer-links
+#Links trailer - List of trailer-links
+##api/movies/{id}/video 
 
 --------------------------------------------------------
 

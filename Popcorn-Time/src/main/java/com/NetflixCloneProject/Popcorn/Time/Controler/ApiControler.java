@@ -5,6 +5,8 @@ package com.NetflixCloneProject.Popcorn.Time.Controler;
 import com.NetflixCloneProject.Popcorn.Time.Classes.*;
 import com.NetflixCloneProject.Popcorn.Time.Service.FeignClientTmdb;
 
+import com.fasterxml.jackson.databind.util.JSONPObject;
+import com.netflix.config.CachedDynamicDoubleProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.HttpStatus;
@@ -222,19 +224,28 @@ public class ApiControler {
 
 
     @GetMapping("api/movies/search/{actor}")
-    public ResponseEntity<List<SearchActors>> searchActor(@PathVariable String actor) {
-//        SearchActors query = new SearchActors();
-        System.out.println(actor);
+    public ResponseEntity<List<SearchActors>> searchActor(@PathVariable String actor, HttpServletRequest request) {
 
-//        switch (actor) {
-//            case "actor":
-//                query.setActorName(actor);
-//                break;
-//        }
+        Optional<ResultSearchActor> resultActor = client.searchActors(actor.toString());
+        Optional<Object> actorData = client.getResultActor(resultActor.get().getResults().get(0).getId());
+        List<ActorInfo> extraResults = resultActor.get().getResults();
+        List<ActorInfo> filterResults = new ArrayList<>();
 
-        Optional<Object> resultActor = client.getActorMovies(actor.toString());
+        for(int i=1; i<extraResults.size(); i++) {
+
+            if (extraResults.get(i).getKnown_for_department().equals("Acting")) {
+
+              filterResults.add(extraResults.get(i));
+            }
+        }
+
+        ReturnResultsActor returnData = new ReturnResultsActor();
+       returnData.setName(resultActor.get().getResults().get(0).getName());
+       returnData.setData(actorData.get());
+       returnData.setSuggestionsList(filterResults);
+
         try {
-            return new ResponseEntity(resultActor.get(), HttpStatus.OK);
+            return new ResponseEntity(returnData.toString(), HttpStatus.OK);
 
         } catch (Exception e) {
             return new ResponseEntity("Het is niet gelukt", HttpStatus.INTERNAL_SERVER_ERROR);
@@ -242,21 +253,7 @@ public class ApiControler {
     }
 
 
-//Actors / credits
-//    @GetMapping("api/movies/{id}/credits")
-//public ResponseEntity<List<Credits>> getActors(@PathVariable Long id, HttpServletRequest request) {
-//        List<Object> ActorsList = new ArrayList<>();
-//
-//        try {
-//            Actors actorslist = client.getCredits(id, "43adde1f22cb5d9f3d7d5852fa42e5e6");
-////            for (Credits item : actorslist.getResults()) {
-//            return new ResponseEntity(getActors(id, request), HttpStatus.OK);
-//        }
-//            catch (Exception e) {
-//                return new ResponseEntity("Het is niet gelukt", HttpStatus.INTERNAL_SERVER_ERROR);
-//            }
-//
-//    }
+
 
         @GetMapping("api/movies/{id}/video")
 
